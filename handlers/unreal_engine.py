@@ -62,9 +62,9 @@ def calculate(id, name, id_user, client):
                 "extra": res[0]["data"][i]["extra"],
                 "approve": res[0]["data"][i]["approve"],
                 "hit": res[0]["data"][i]["hit"],
-                "counter_yes": counter_yes,
-                "counter_maybe": counter_maybe,
-                "counter_maybe_maybe": counter_maybe_maybe,
+                "counter_yes": counter_yes+1,
+                "counter_maybe": counter_maybe+1,
+                "counter_maybe_maybe": counter_maybe_maybe+1,
                 "poly_date": res[0]["poly_date"],
                 "server_date": res[0]["server_date"],
                 "group_name": name
