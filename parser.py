@@ -5,9 +5,9 @@ from sys import getsizeof
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse, parse_qs
 from pymongo import MongoClient
-from datetime import datetime
+from datetime import datetime, timedelta
 
-client = MongoClient('mongodb://localhost:27017/')
+client = MongoClient('mongodb://mongodb11:27017/')
 
 exceptions = []
 
@@ -95,7 +95,7 @@ while(True):
             data_to_insert.append({
                 "params": parse_qs(parsed_url.query),
                 "poly_date": soup.find("h3").text,
-                "server_date": datetime.now().strftime("%H:%M:%S"),
+                "server_date": (datetime.now() + timedelta(hours=3)).strftime("%H:%M:%S"),
                 "data": users
             })
     with client:

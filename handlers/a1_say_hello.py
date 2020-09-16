@@ -11,7 +11,7 @@ from aiogram.types import ReplyKeyboardRemove, \
 
 from aiogram.utils.markdown import text, bold, italic, code, pre
 
-client = MongoClient('mongodb://localhost:27017/')
+client = MongoClient('mongodb://mongodb11:27017/')
 
 class Position(StatesGroup):
     waiting_for_enter_fio = State()
