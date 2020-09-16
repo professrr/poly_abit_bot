@@ -4,6 +4,10 @@ import json
 from sys import getsizeof
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse, parse_qs
+from pymongo import MongoClient
+from datetime import datetime
+
+client = MongoClient('mongodb://localhost:27017/')
 
 exceptions = []
 
@@ -91,11 +95,15 @@ while(True):
             data_to_insert.append({
                 "params": parse_qs(parsed_url.query),
                 "poly_date": soup.find("h3").text,
-                "server_date": d.headers['Date'],
+                "server_date": datetime.now().strftime("%H:%M:%S"),
                 "data": users
             })
-    with open('data.json', 'w', encoding='utf-8') as f:
-        json.dump(data_to_insert, f, ensure_ascii=False, indent=4)
+    with client:
+        db = client.monitor_poly
+        res = db.poly_data.insert_many(data_to_insert)
+        print(res)
+    # with open('data.json', 'w', encoding='utf-8') as f:
+    #     json.dump(data_to_insert, f, ensure_ascii=False, indent=4)
     end = time.time()
     time.sleep(10)
     print("Fineshed parsing! Time =", end - start)
