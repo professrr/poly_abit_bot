@@ -1,0 +1,33 @@
+version: '3'
+services:
+  mongodb11:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_DATABASE: monitor_poly
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    ports:
+      - "27017:27017"
+
+  parser11:
+    build:
+      context: ./
+      dockerfile: Dockerfile.parser
+    container_name: parser11
+    command: bash -c "python parser.py"
+    volumes:
+      - .:/parser
+    depends_on:
+      - mongodb11
+
+  bot11:
+    build:
+      context: ./
+      dockerfile: Dockerfile.bot
+    container_name: bot11
+    command: bash -c "python bot.py"
+    volumes:
+      - .:/bot
+    depends_on:
+      - mongodb11

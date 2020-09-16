@@ -2,3 +2,4 @@ pymongo
 aiogram==2.9.2
 grequests
 fuzzywuzzy
+beautifulsoup4
