@@ -1,6 +1,7 @@
 from fuzzywuzzy import fuzz 
 from fuzzywuzzy import process
 import json
+# from pymongo import MongoClient
 
 # client = MongoClient('mongodb://localhost:27017/')
 
@@ -13,7 +14,11 @@ def countSubs(id_user, client):
         res = db.users_new.find({"watch_info.230.name": user["watch_info"]["230"]["name"]}).sort('_id',-1)
         return res
         
-
+def getAllUsers(client):
+    with client:
+        db = client.monitor_poly
+        res = db.users_new.find()
+        return res
 
 
 def getNamesByUser(id_user, client):
@@ -139,3 +144,4 @@ def initialInsertUser(telegram_info, max, client):
 
 # with open('countSubs.json', 'w', encoding='utf-8') as f:
 #         json.dump(getNamesByUser(78795079, client), f, ensure_ascii=False, indent=4)
+
