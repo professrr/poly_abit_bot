@@ -20,7 +20,7 @@ class Position(StatesGroup):
     waiting_for_approve_insert = State()
 
 
-async def congrats():
+async def congrats(dp):
     client = MongoClient('mongodb://mongodb11:27017/')
     for user in unreal_engine.getAllUsers(client):
         print(user['watcher_id'])
