@@ -20,10 +20,12 @@ class Position(StatesGroup):
     waiting_for_approve_insert = State()
 
 
-for user in unreal_engine.getAllUsers(client):
-    print(user['watcher_id'])
-    bot.send_message(user['watcher_id'],'Поздравляем с успешным поступлением!)\n:)')
-    bot.send_photo(user['watcher_id'],'https://cs11.pikabu.ru/post_img/2019/03/08/6/1552037556176615454.jpg')
+async def congrats:
+    client = MongoClient('mongodb://mongodb11:27017/')
+    for user in unreal_engine.getAllUsers(client):
+        print(user['watcher_id'])
+        await bot.send_message(user['watcher_id'],'Поздравляем с успешным поступлением!)\n:)')
+        await bot.send_photo(user['watcher_id'],'https://cs11.pikabu.ru/post_img/2019/03/08/6/1552037556176615454.jpg')
 
 # bot.send_message(753309208, 'Доступен новый функционал\nНажми сюда /here')    
 
